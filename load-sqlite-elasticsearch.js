@@ -12,7 +12,7 @@ async function run () {
   async function processMonlam() {
 
     let db = await open({
-          filename: './monlam-database.sqlite',
+          filename: './phurba/monlam-database.sqlite',
           driver: sqlite3.Database
         })
 
@@ -290,8 +290,8 @@ async function run () {
     await db.close()
   }
 
-  //await processMonlam()
-  //await processMahavyutpatti()
+  await processMonlam()
+  await processMahavyutpatti()
   await processRangjungYeshe()
   await processTshigMdzod()
   await processDagYig()
