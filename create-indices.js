@@ -20,21 +20,23 @@ async function run () {
         },
       },
       settings: {
+        number_of_shards:1,
+        number_of_replicas:0,
       }
     }
     console.log("Creating index: ", JSON.stringify(indexConfig,null,2))
     await client.indices.create(indexConfig);
   }
 
-  await createIndex('monlam_tib_eng')
-  await createIndex('monlam_tib_tib')
-  await createIndex('phurba_mahavyutpatti')
-  await createIndex('phurba_rangjung_yeshe')
-  await createIndex('phurba_tshig_mdzod_chen_mo')
-  await createIndex('phurba_new_english_tibetan')
-  await createIndex('phurba_dag_yig_gsar_bsgrigs')
-  await createIndex('phurba_tsultrim_lodro_tib_eng')
-  await createIndex('phurba_tsultrim_lodro_tib_tib')
+  await createIndex('monlam_tib_eng',true)
+  await createIndex('monlam_tib_tib',true)
+  await createIndex('phurba_mahavyutpatti',true)
+  await createIndex('phurba_rangjung_yeshe',true)
+  await createIndex('phurba_tshig_mdzod_chen_mo',true)
+  await createIndex('phurba_new_english_tibetan',true)
+  await createIndex('phurba_dag_yig_gsar_bsgrigs',true)
+  await createIndex('phurba_tsultrim_lodro_tib_eng',true)
+  await createIndex('phurba_tsultrim_lodro_tib_tib',true)
 
 }
 
