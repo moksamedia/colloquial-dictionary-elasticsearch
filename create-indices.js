@@ -36,25 +36,6 @@ async function run () {
   await createIndex('phurba_tsultrim_lodro_tib_eng')
   await createIndex('phurba_tsultrim_lodro_tib_tib')
 
-  async putAlias(index, alias) {
-    await this.client
-     .indices
-     .putAlias({
-       index: [
-         'monlam_tib_eng',
-         'monlam_tib_tib',
-         'phurba_mahavyutpatti',
-         'phurba_rangjung_yeshe',
-         'phurba_tshig_mdzod_chen_mo',
-         'phurba_new_english_tibetan',
-         'phurba_dag_yig_gsar_bsgrigs',
-         'phurba_tsultrim_lodro_tib_eng',
-         'phurba_tsultrim_lodro_tib_tib'
-       ],
-       name: all_colloquilal_dicts
-     });
-    this.logElastic('info', `[ALIAS] successfully added alias [${alias}] to [${index}]!`);
-   }
 }
 
 run().catch(console.log)
