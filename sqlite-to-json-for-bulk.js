@@ -6,7 +6,7 @@ const fs = require('fs')
 async function run () {
 
 
-    async function process(dbFile, source, table, idField) {
+    async function process(dbFile, source, table, definiendumKey, definitionKey, idField) {
 
         // Mahavyutpatti (sanskrit tibetan)
 
@@ -33,14 +33,29 @@ async function run () {
           const id = source+"_"+_id
 
           const documentLine = {
-            definition: row.result,
-            definiendum: row.word,
+            definition: row[definitionKey],
+            definiendum: row[definiendumKey],
             source: source,
             id: id
-
           }
 
-          data.push(documentLine)
+          if (!documentLine.definition) {
+            console.log("SKIPPING, definition null")
+            console.log(JSON.stringify(documentLine))
+          }
+          else if (!documentLine.definiendum) {
+            console.log("SKIPPING, definiendum null")
+            console.log(JSON.stringify(documentLine))
+          }
+          else {
+
+            assert(documentLine.definition)
+            assert(documentLine.definiendum)
+            assert(documentLine.source)
+            assert(documentLine.id)
+
+            data.push(documentLine)
+          }
 
         }
 
@@ -56,6 +71,8 @@ async function run () {
       './phurba/monlam-database.sqlite',
       'monlam_tib_tib',
       'table_en_ind',
+      'word',
+      'result',
       '_id'
     )
 
@@ -63,6 +80,8 @@ async function run () {
       './phurba/monlam-database.sqlite',
       'monlam_tib_eng',
       'table_ind_en',
+      'word',
+      'result',
       '_id'
     )
 
@@ -146,6 +165,8 @@ async function run () {
         './phurba/mp_dict.sqlite',
         'phurba_mahavyutpatti',
         'words',
+        'word',
+        'definition',
         'word_id'
       )
   }
@@ -156,6 +177,8 @@ async function run () {
         './phurba/ry_dict.sqlite',
         'phurba_rangjung_yeshe',
         'words',
+        'word',
+        'definition',
         'word_id'
       )
   }
@@ -166,6 +189,8 @@ async function run () {
       './phurba/tibet_dict.sqlite',
       'phurba_tshig_mdzod_chen_mo',
       'words',
+      'word',
+      'definition',
       'word_id'
     )
   }
@@ -176,6 +201,8 @@ async function run () {
       './phurba/nt_dict.sqlite',
       'phurba_dag_yig_gsar_bsgrigs',
       'words',
+      'word',
+      'definition',
       'word_id'
     )
   }
@@ -186,6 +213,8 @@ async function run () {
       './phurba/net_dict.sqlite',
       'phurba_new_english_tibetan',
       'words',
+      'word',
+      'definition',
       'word_id'
     )
   }
@@ -196,6 +225,8 @@ async function run () {
       './phurba/TsultrimLodro_dict_bo.sqlite',
       'phurba_tsultrim_lodro_tib_tib',
       'words',
+      'word',
+      'definition',
       'word_id'
     )
   }
@@ -207,6 +238,8 @@ async function run () {
       './phurba/TsultrimLodro_dict_en.sqlite',
       'phurba_tsultrim_lodro_tib_eng',
       'words',
+      'word',
+      'definition',
       'word_id'
     )
   }
